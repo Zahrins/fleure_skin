@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+#toggle:checked ~ label div.toggle-circle {
+  @apply translate-x-3;
+}
+
+@theme {
+  --font-display: "Oswald", "sans-serif"; 
+  --font-logo: "Playfair Display", "serif";
+  --font-title: "Roboto", "sans-serif";
+  --color-first: #FFF7F3;
+  --color-second: #FAD0C4;
+  --color-third: #3B1C32;
+  --color-fourth: #CF455C;
+}

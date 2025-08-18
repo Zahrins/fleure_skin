@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./style.css" rel="stylesheet">
+  <title>About</title>
+  <style>
+    .fixed-nav-mobile {
+      position: fixed;
+      top: 4px;
+      left: 5px;
+      right: 5px;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-rose-100 via-first to-rose-100 font-sans text-slate-800">
+
+  <div class="flex flex-col items-center justify-center min-h-screen p-6 md:p-10 lg:p-16">
+    <div class="fixed-nav-mobile">
+      <section class="flex items-center justify-between border border-slate-400 rounded-2xl bg-white min-w-sm lg:min-w-6xl p-3 px-6">
+        <a class="font-logo text-[12px] lg:text-[24px] sm:text-6xl md:text-7xl font-semibold text-slate-600 leading-tight">FleurSkin</a>
+        <nav class="justify-center space-x-2.5 lg:space-x-8 mx-3">
+          <a href="home.html" class="text-slate-700 hover:text-slate-950 font-medium transition-colors duration-200">Home</a>
+          <a href="about.html" class="text-slate-700 hover:text-slate-950 font-medium transition-colors duration-200">About</a>
+          <a href="features.html" class="text-slate-700 hover:text-slate-950 font-medium transition-colors duration-200">Features</a>
+        </nav>
+        <a href="login.php" class="font-logo text-[12px] lg:text-[18px] sm:text-6xl md:text-7xl font-semibold text-slate-700 leading-tight border border-slate-400 rounded-3xl p-1 px-2 lg:px-4 bg-first hover:bg-second">Get Started</a>
+      </section>
+    </div>
+
+    <section class="flex flex-col lg:flex-row bg-[#fdf9fc70] lg:mt-10 mt-20 p-10 rounded-4xl">
+      <div class="mb-16 lg:mb-10">
+        <p class="text-3xl lg:text-5xl sm:text-xl md:text-2xl font-bold mb-10">ABOUT</p>
+        <a class="font-semibold text-2xl">Our Mission</a>
+        <p class="leading-relaxed text-base sm:text-lg md:text-xl mt-8 lg:mb-12">
+          FleurSkin is dedicated to helping you achieve your best skin through personalized skincare solutions. We believe that everyone deserves to feel confident in their own skin.
+        </p>
+      </div>
+
+      <div>
+        <img src="../img/skin care.webp" class="lg:max-w-xl lg:ml-20 rounded-2xl"></img>
+      </div>
+    </section>
+
+    <a class="font-semibold mt-20 text-xl lg:text-2xl">Experience the FleurSkin Difference</a>
+
+    <section class="flex flex-col lg:flex-row gap-10 mt-10">
+      <div class="flex-1 bg-[#fdf9fc70] p-5 hover:scale-95 transition-all duration-500">
+        <img src="../img/noun-facial-7135255.png" class="w-20 h-20 block mx-auto mt-5 mb-5">
+        <a class="font-semibold text-2xl block text-center">Transform Your Skin</a>
+        <p class="mt-5 mb-5 text-center">Join thousands of users who have improved their skin with our personalized approach to skincare.</p>
+      </div>
+      <div class="flex-1 bg-[#fdf9fc70] p-5 hover:scale-95 transition-all duration-500">
+        <img src="../img/noun-herbal-detox-7135248.png" class="w-20 h-20 block mx-auto mt-5 mb-5">
+        <a class="font-semibold text-2xl block text-center">Natural Ingredients</a>
+        <p class="mt-5 mb-5 text-center">We recommend products with natural, skin-friendly ingredients.</p>
+      </div>
+      <div class="flex-1 bg-[#fdf9fc70] p-5 hover:scale-95 transition-all duration-500">
+        <img src="../img/noun-face-care-7135250.png" class="w-20 h-20 block mx-auto mt-5 mb-5">
+        <a class="font-semibold text-2xl block text-center">Easy to Use</a>
+        <p class="mt-5 mb-5 text-center">We recommend products with natural, skin-friendly ingredients.</p>
+      </div>
+      <div class="flex-1 bg-[#fdf9fc70] p-5 hover:scale-95 transition-all duration-500">
+        <img src="../img/noun-faces-6639800.png" class="w-20 h-20 block mx-auto mt-5 mb-5">
+        <a class="font-semibold text-2xl block text-center">Expert Support</a>
+        <p class="mt-5 mb-5 text-center">Get guidance from skincare professionals.</p>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
