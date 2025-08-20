@@ -1,10 +1,7 @@
 <?php
 
-// Database connection
-$conn = new mysqli("localhost", "root", "", "fleurskin");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'koneksi.php';
+$conn = getConnection();
 
 $sql_select = "SELECT * FROM product_inventory";
 $result = $conn->query($sql_select);

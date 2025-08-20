@@ -1,6 +1,8 @@
 <?php
 session_start(); 
 
+require_once 'koneksi.php';
+
 if (!isset($_SESSION['user_login'])) {
     header('Location: login.php');
     exit();
@@ -8,16 +10,10 @@ if (!isset($_SESSION['user_login'])) {
 
 $logged_in_username = $_SESSION['user_login'];
 
-// Database connection (adjust these values according to your database)
-$servername = "localhost";
-$db_username = "root";
-$password = "";
-$dbname = "fleurskin";
-
+// Gunakan fungsi getPDOConnection()
 try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $db_username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
+    $pdo = getPDOConnection();
+} catch (Exception $e) {
     die("Connection failed: " . $e->getMessage());
 }
 

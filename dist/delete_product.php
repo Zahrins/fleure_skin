@@ -1,9 +1,7 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "fleurskin");
-if ($conn->connect_error) {
-    die("connection failed: " . $conn->connect_error);
-}
+require_once 'koneksi.php';
+$conn = getConnection();
 
 $id = $_GET['id'] ?? 0;
 

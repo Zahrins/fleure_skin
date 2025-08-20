@@ -1,15 +1,9 @@
 <?php
 
-// Database connection
-$conn = new mysqli("localhost", "root", "", "fleurskin");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql_select = "SELECT * FROM tracker";
-$result = $conn->query($sql_select);
-
 session_start(); 
+
+// Include file koneksi database
+require_once 'koneksi.php';
 
 if (!isset($_SESSION['user_login'])) {
     header('Location: login.php');
@@ -18,17 +12,28 @@ if (!isset($_SESSION['user_login'])) {
 
 $logged_in_username = $_SESSION['user_login'];
 
-// Database connection
-$servername = "localhost";
-$db_username = "root";
-$password = "";
-$dbname = "fleurskin";
-
 try {
+    // Menggunakan koneksi dari file koneksi.php untuk mysqli
+    $conn = getConnection();
+    
+    $sql_select = "SELECT * FROM tracker";
+    $result = $conn->query($sql_select);
+    
+} catch (Exception $e) {
+    die("Connection failed: " . $e->getMessage());
+}
+
+// Koneksi PDO untuk AJAX operations (bisa juga menggunakan mysqli, tapi untuk konsistensi dengan kode existing)
+try {
+    $servername = "localhost";
+    $db_username = "root";
+    $password = "";
+    $dbname = "fleurskin";
+    
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $db_username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    die("PDO Connection failed: " . $e->getMessage());
 }
 
 // Handle AJAX requests for updating task status

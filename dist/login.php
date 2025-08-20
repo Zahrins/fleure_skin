@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// Include file koneksi database
+require_once 'koneksi.php';
+
 // Cek jika sudah login (via session atau cookie)
 if (isset($_SESSION['user_login']) || isset($_COOKIE['user_login'])) {
     header('Location: schedule.php');
@@ -31,13 +34,10 @@ if (isset($_POST['submit'])) {
     
     // Jika tidak ada error validasi, lanjut ke database
     if (!$has_error) {
-        // Koneksi ke database
-        $conn = new mysqli("localhost", "root", "", "fleurskin");
-        
-        // Periksa koneksi
-        if ($conn->connect_error) {
-            $error_message = "Koneksi database gagal!";
-        } else {
+        try {
+            // Menggunakan koneksi dari file koneksi.php
+            $conn = getConnection();
+            
             // Query untuk mendapatkan data user
             $sql = "SELECT username, pwd FROM users WHERE username = ?";
             $stmt = $conn->prepare($sql);
@@ -71,6 +71,11 @@ if (isset($_POST['submit'])) {
             
             $stmt->close();
             $conn->close();
+            
+        } catch (Exception $e) {
+            $error_message = "Terjadi kesalahan koneksi database!";
+            // Optional: log error untuk debugging
+            // error_log($e->getMessage());
         }
     }
 }

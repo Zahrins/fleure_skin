@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// Include file koneksi database
+require_once 'koneksi.php';
+
 $error_message = '';
 $success_message = '';
 $username_error = '';
@@ -19,6 +22,12 @@ if (isset($_POST['submit'])) {
     // Validasi username
     if (empty($username)) {
         $username_error = "Username harus diisi!";
+        $has_error = true;
+    } elseif (strlen($username) < 3) {
+        $username_error = "Username minimal 3 karakter!";
+        $has_error = true;
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        $username_error = "Username hanya boleh berisi huruf, angka, dan underscore!";
         $has_error = true;
     }
     
@@ -42,12 +51,10 @@ if (isset($_POST['submit'])) {
     
     // Jika tidak ada error validasi, lanjut ke database
     if (!$has_error) {
-        // Koneksi database
-        $conn = new mysqli("localhost", "root", "", "fleurskin");
-        
-        if ($conn->connect_error) {
-            $error_message = "Koneksi database gagal!";
-        } else {
+        try {
+            // Menggunakan koneksi dari file koneksi.php
+            $conn = getConnection();
+            
             // Cek apakah username atau email sudah ada
             $check_sql = "SELECT username, email FROM users WHERE username = ? OR email = ?";
             $check_stmt = $conn->prepare($check_sql);
@@ -64,10 +71,14 @@ if (isset($_POST['submit'])) {
                     $email_error = "Email sudah terdaftar!";
                 }
             } else {
+                // Hash password untuk keamanan yang lebih baik (opsional)
+                // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                
                 // Insert user baru
                 $insert_sql = "INSERT INTO users (username, email, pwd) VALUES (?, ?, ?)";
                 $insert_stmt = $conn->prepare($insert_sql);
                 $insert_stmt->bind_param("sss", $username, $email, $password);
+                // Jika menggunakan hash: $insert_stmt->bind_param("sss", $username, $email, $hashed_password);
                 
                 if ($insert_stmt->execute()) {
                     $success_message = "Registrasi berhasil! Silakan login.";
@@ -84,6 +95,11 @@ if (isset($_POST['submit'])) {
             
             $check_stmt->close();
             $conn->close();
+            
+        } catch (Exception $e) {
+            $error_message = "Terjadi kesalahan koneksi database!";
+            // Optional: log error untuk debugging
+            // error_log($e->getMessage());
         }
     }
 }
@@ -169,6 +185,12 @@ if (isset($_POST['submit'])) {
             </a>
           </div>
           <?php endif; ?>
+          
+          <!-- Link to login if already have account -->
+          <p class="text-center text-sm text-gray-600 mt-4">
+            Already have an account? 
+            <a href="login.php" class="text-blue-500 hover:underline">Sign In</a>
+          </p>
         </form>
     </div>
 

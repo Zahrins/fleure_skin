@@ -8,18 +8,10 @@ if (!isset($_SESSION['user_login'])) {
 
 $logged_in_username = $_SESSION['user_login'];
 
-// Database connection
-$servername = "localhost";
-$db_username = "root";
-$password = "";
-$dbname = "fleurskin";
-
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $db_username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
-}
+// Include koneksi database
+require_once 'koneksi.php';
+$conn = getConnection();
+$pdo = getPDOConnection();
 
 // Handle AJAX request for deleting individual schedule items
 if (isset($_POST['action']) && $_POST['action'] == 'delete_schedule_item') {
